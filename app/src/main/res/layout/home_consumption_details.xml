@@ -12,7 +12,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="name"
-        android:layout_weight="0.2"
+        android:gravity="center"
+        android:background="@drawable/border_no_fill"
+        android:textColor="@color/black"
+        android:layout_weight="0.3"
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
 
@@ -22,17 +25,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="type"
-        android:layout_weight="0.2"
+        android:gravity="center"
+        android:background="@drawable/border_no_fill"
+        android:textColor="@color/black"
+        android:layout_weight="0.3"
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
 
     <ImageView
-        android:id="@+id/trend"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        app:srcCompat="@drawable/moving_black_48dp"
-        app:tint="#37EE89" />
+    android:id="@+id/trend"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="0"
+    app:srcCompat="@drawable/moving_black_48dp"
+    app:tint="#00FFFFFF" />
 
 <!--        android:rotation="180"-->
 <!--        android:rotationX="0"-->
@@ -43,28 +49,35 @@
         android:id="@+id/cost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
         android:text="cost"
+        android:gravity="center"
+        android:background="@drawable/border_no_fill"
+        android:textColor="@color/black"
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:text="date"
-        android:layout_marginStart="9dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="10dp"/>
+<!--    <TextView-->
+<!--        android:id="@+id/date"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="0.2"-->
+<!--        android:text="date"-->
+<!--        android:gravity="center"-->
+<!--        android:background="@drawable/border_no_fill"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_marginStart="9dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginEnd="10dp"/>-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSeeMore"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="0.1"
         android:background="@drawable/visibility_black_48dp"
-        android:backgroundTint="@color/primary_color"
+        app:backgroundTint="@color/black"
+        android:layout_margin="10dp"
         />
 
 </LinearLayout>

@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import ki1nhom2.btl.qlct.R
 import ki1nhom2.btl.qlct.addState.AddStateActivity
+import ki1nhom2.btl.qlct.addState.addCost.ExpenditureCostNode
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
 
 class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerView.Adapter<MonthlyInfoAdapter.ViewHolder>() {
+
+    var type : Int = 0
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,27 +37,38 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         holder.income.text = monthlyStatisticStructure.income.toString()
         holder.outcome.text = monthlyStatisticStructure.outcome.toString()
 
-        holder.dropDown.setOnClickListener {
-            generateConsumptionList(holder, monthlyStatisticStructure.monthName)
-            HomeStateActivity.adapter.notifyItemChanged(position)
+        holder.itemView.setOnClickListener {
+            if(type == 0) {
+                generateConsumptionList(holder, monthlyStatisticStructure.monthName)
+                println(type.toString() + " " + HomeStateActivity.data[position].consumptionList.size.toString())
+                holder.dropDown.rotationX = 180f
+            }
+            else if(type == 1) {
+                HomeStateActivity.data[position].consumptionList.clear()
+                println(type.toString() + " " + HomeStateActivity.data[position].consumptionList.size.toString())
+                holder.list.removeAllViews()
+                holder.dropDown.rotationX = 0f
+            }
+            notifyItemChanged(position)
+            type = 1 - type
         }
     }
 
     private fun generateConsumptionList(holder : ViewHolder, monthName : String) {
 
-        val child : View = LayoutInflater.from(holder.dropDown.context).inflate(R.layout.home_consumption_details, null)
-        val name : TextView = child.findViewById(R.id.name)
-        val type : TextView = child.findViewById(R.id.type)
-        val cost : TextView = child.findViewById(R.id.cost)
-        val date : TextView = child.findViewById(R.id.date)
-        val btnSeeMore : MaterialButton = child.findViewById(R.id.btnSeeMore)
-
         for(i in 0 until AddStateActivity.consumptionInfo.size) {
-            if(AddStateActivity.consumptionInfo[i].date.substring(3, 5) == monthName) {
+            if(AddStateActivity.consumptionInfo[i].date.substring(3, 5).toInt()-1 == HomeStateActivity.monthNames.indexOf(monthName)) {
+                HomeStateActivity.data[HomeStateActivity.monthNames.indexOf(monthName)].consumptionList.add(AddStateActivity.consumptionInfo[i])
+
+                val child : View = LayoutInflater.from(holder.list.context).inflate(R.layout.home_consumption_details, holder.list, false)
+                val name : TextView = child.findViewById(R.id.name)
+                val type : TextView = child.findViewById(R.id.type)
+                val cost : TextView = child.findViewById(R.id.cost)
+                val btnSeeMore : MaterialButton = child.findViewById(R.id.btnSeeMore)
+
                 name.text = AddStateActivity.consumptionInfo[i].name
                 type.text = AddStateActivity.consumptionInfo[i].type
                 cost.text = AddStateActivity.consumptionInfo[i].cost.toString()
-                date.text = AddStateActivity.consumptionInfo[i].date
 
                 holder.list.addView(child)
             }

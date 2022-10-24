@@ -56,7 +56,7 @@ open class MainActivity : AppCompatActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_state)
+        setContentView(R.layout.activity_main)
 
         if(!isInitialized) {
             init()
