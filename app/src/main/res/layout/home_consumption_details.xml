@@ -8,10 +8,20 @@
     >
 
     <TextView
-        android:id="@+id/expenditure"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="expenditure"
+        android:text="name"
+        android:layout_weight="0.2"
+        android:layout_marginStart="9dp"
+        android:layout_gravity="center" />
+
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="type"
         android:layout_weight="0.2"
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
@@ -38,20 +48,23 @@
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        app:srcCompat="@drawable/percent_black_48dp"
-        app:tint="#2727DE" />
-
     <TextView
-        android:id="@+id/proportion"
+        android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:text="proportion"
+        android:text="date"
         android:layout_marginStart="9dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSeeMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:background="@drawable/visibility_black_48dp"
+        android:backgroundTint="@color/primary_color"
+        />
 
 </LinearLayout>
