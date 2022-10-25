@@ -1,18 +1,20 @@
 package ki1nhom2.btl.qlct.homeState.monthlyShorten
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.View.inflate
-import android.view.ViewGroup
+import android.content.Context
+import android.util.DisplayMetrics
+import android.view.*
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
+import ki1nhom2.btl.qlct.MainActivity
 import ki1nhom2.btl.qlct.R
 import ki1nhom2.btl.qlct.addState.AddStateActivity
-import ki1nhom2.btl.qlct.addState.addCost.ExpenditureCostNode
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.popup
+
 
 class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerView.Adapter<MonthlyInfoAdapter.ViewHolder>() {
 
@@ -38,18 +40,20 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         holder.outcome.text = monthlyStatisticStructure.outcome.toString()
 
         holder.itemView.setOnClickListener {
+            println("Type = $type")
             if(type == 0) {
                 generateConsumptionList(holder, monthlyStatisticStructure.monthName)
-                println(type.toString() + " " + HomeStateActivity.data[position].consumptionList.size.toString())
+                println(HomeStateActivity.data[position].consumptionList.size.toString())
                 holder.dropDown.rotationX = 180f
             }
             else if(type == 1) {
                 HomeStateActivity.data[position].consumptionList.clear()
-                println(type.toString() + " " + HomeStateActivity.data[position].consumptionList.size.toString())
                 holder.list.removeAllViews()
+                println(HomeStateActivity.data[position].consumptionList.size.toString() + " " + holder.list.size.toString())
                 holder.dropDown.rotationX = 0f
+
+                notifyItemChanged(position)
             }
-            notifyItemChanged(position)
             type = 1 - type
         }
     }
@@ -70,6 +74,11 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
                 type.text = AddStateActivity.consumptionInfo[i].type
                 cost.text = AddStateActivity.consumptionInfo[i].cost.toString()
 
+                btnSeeMore.setOnClickListener {
+                    popup.showAtLocation(holder.itemView, Gravity.CENTER, MainActivity.width / 2, MainActivity.height / 4)
+//                    popup.update()
+                }
+
                 holder.list.addView(child)
             }
         }
@@ -87,6 +96,6 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         val outcome: TextView = itemView.findViewById(R.id.outcome)
         val dropDown : ImageButton = itemView.findViewById(R.id.dropdown)
         val list : LinearLayout = itemView.findViewById(R.id.consumptionList)
-
     }
+
 }

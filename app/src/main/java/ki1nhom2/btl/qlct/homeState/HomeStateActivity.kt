@@ -1,6 +1,9 @@
 package ki1nhom2.btl.qlct.homeState
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.ImageButton
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +12,7 @@ import ki1nhom2.btl.qlct.R
 import ki1nhom2.btl.qlct.MainActivity
 import ki1nhom2.btl.qlct.homeState.monthlyShorten.MonthlyInfoAdapter
 import ki1nhom2.btl.qlct.homeState.monthlyShorten.MonthlyInfoNode
+import org.w3c.dom.Text
 
 class HomeStateActivity : MainActivity() {
 
@@ -24,6 +28,7 @@ class HomeStateActivity : MainActivity() {
 
         val data = ArrayList<MonthlyInfoNode>()
         lateinit var adapter : MonthlyInfoAdapter
+        lateinit var popup : PopupWindow
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,5 +43,9 @@ class HomeStateActivity : MainActivity() {
 
         val textView = findViewById<TextView>(R.id.balanceNumber)
         textView.text = toMoneyFormat(balance)
+
+        popup = PopupWindow(this)
+
+        changeColor(1)
     }
 }

@@ -25,16 +25,18 @@
             android:layout_weight="0.7"
             android:background="@null"
             app:srcCompat="@drawable/home_black_48dp"
-            android:onClick="toHomeState" />
+            android:onClick="toHomeState"
+            app:tint="@color/gray" />
 
         <TextView
+            android:id="@+id/txtHome"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:text="Home"
             android:textAlignment="center"
             android:textSize="6pt"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -53,16 +55,18 @@
             android:layout_weight="0.7"
             android:background="@null"
             app:srcCompat="@drawable/description_black_48dp"
-            android:onClick="toTransactionState" />
+            android:onClick="toTransactionState"
+            app:tint="@color/gray" />
 
         <TextView
+            android:id="@+id/txtTrans"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:text="Trans"
             android:textAlignment="center"
             android:textSize="6pt"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -87,22 +91,24 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/btnWallet"
+            android:id="@+id/btnStats"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
             android:background="@null"
             app:srcCompat="@drawable/bar_chart_black_48dp"
-            android:onClick="toStatsState" />
+            android:onClick="toStatsState"
+            app:tint="@color/gray" />
 
         <TextView
+            android:id="@+id/txtStats"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:text="Stats"
             android:textAlignment="center"
             android:textSize="6pt"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -121,16 +127,18 @@
             android:layout_weight="0.7"
             android:background="@null"
             app:srcCompat="@drawable/account_circle_black_48dp"
-            android:onClick="toProfileState" />
+            android:onClick="toProfileState"
+            app:tint="@color/gray" />
 
         <TextView
+            android:id="@+id/txtProfile"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:text="Profile"
             android:textAlignment="center"
             android:textSize="6pt"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:textStyle="bold" />
 
     </LinearLayout>

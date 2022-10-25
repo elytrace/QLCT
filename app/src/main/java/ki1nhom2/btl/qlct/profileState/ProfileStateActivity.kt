@@ -11,5 +11,6 @@ class ProfileStateActivity : MainActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_state)
 
+        changeColor(4)
     }
 }

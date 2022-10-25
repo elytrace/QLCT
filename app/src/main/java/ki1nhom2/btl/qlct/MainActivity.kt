@@ -1,8 +1,12 @@
 package ki1nhom2.btl.qlct
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ki1nhom2.btl.qlct.addState.AddStateActivity
 import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.expenditureCost
@@ -25,6 +29,11 @@ open class MainActivity : AppCompatActivity() {
         // variables
 
         var isInitialized : Boolean = false
+
+        val displayMetrics = DisplayMetrics()
+
+        var width = displayMetrics.widthPixels
+        var height = displayMetrics.heightPixels
 
         // functions
 
@@ -49,7 +58,6 @@ open class MainActivity : AppCompatActivity() {
             for(i in 1..12) {
                 balance += income[i] - outcome[i]
             }
-
         }
     }
 
@@ -61,8 +69,25 @@ open class MainActivity : AppCompatActivity() {
         if(!isInitialized) {
             init()
             isInitialized = true
-
         }
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+    }
+
+    fun changeColor(contentIndex : Int) {
+        val btnHome = findViewById<ImageButton>(R.id.btnHome)
+        val btnTrans = findViewById<ImageButton>(R.id.btnTrans)
+        val btnStats = findViewById<ImageButton>(R.id.btnStats)
+        val btnProfile = findViewById<ImageButton>(R.id.btnProfile)
+        val txtHome = findViewById<TextView>(R.id.txtHome)
+        val txtTrans = findViewById<TextView>(R.id.txtTrans)
+        val txtStats = findViewById<TextView>(R.id.txtStats)
+        val txtProfile = findViewById<TextView>(R.id.txtProfile)
+
+        val listBtn : ArrayList<ImageButton> = arrayListOf(btnHome, btnTrans, btnStats, btnProfile)
+        val listTxt : ArrayList<TextView> = arrayListOf(txtHome, txtTrans, txtStats, txtProfile)
+
+        listBtn[contentIndex-1].setColorFilter(Color.BLACK)
+        listTxt[contentIndex-1].setTextColor(Color.BLACK)
     }
 
     private fun init() {

@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"
-            android:text="SEE YOU AGAIN"
+            android:text="PROFILE STATE\nCOMING SOON"
+            android:textStyle="bold"
             android:textSize="10pt"
             android:gravity="center" />
 

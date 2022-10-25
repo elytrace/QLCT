@@ -9,7 +9,8 @@ class TransactionStateActivity : MainActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.transaction_state)
+        setContentView(R.layout.trans_state)
 
+        changeColor(2)
     }
 }

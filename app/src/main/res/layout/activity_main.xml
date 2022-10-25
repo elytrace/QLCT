@@ -20,6 +20,7 @@
             android:layout_weight="0.9"
             android:text="Main Activity"
             android:textSize="10pt"
+            android:textColor="@color/secondary_color"
             android:gravity="center" />
 
         <TextView

@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="name"
+        android:textSize="8pt"
         android:gravity="center"
         android:background="@drawable/border_no_fill"
         android:textColor="@color/black"
@@ -25,6 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="type"
+        android:textSize="8pt"
         android:gravity="center"
         android:background="@drawable/border_no_fill"
         android:textColor="@color/black"
@@ -51,9 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="cost"
+        android:textSize="8pt"
         android:gravity="center"
-        android:background="@drawable/border_no_fill"
         android:textColor="@color/black"
+        android:paddingStart="15dp"
         android:layout_marginStart="9dp"
         android:layout_gravity="center" />
 

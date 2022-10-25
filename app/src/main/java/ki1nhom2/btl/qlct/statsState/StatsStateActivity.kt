@@ -11,5 +11,6 @@ class StatsStateActivity : MainActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.stats_state)
 
+        changeColor(3)
     }
 }
