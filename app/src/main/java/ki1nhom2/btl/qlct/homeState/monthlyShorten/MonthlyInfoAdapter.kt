@@ -5,16 +5,19 @@ import android.util.DisplayMetrics
 import android.view.*
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import ki1nhom2.btl.qlct.MainActivity
+import ki1nhom2.btl.qlct.MainActivity.Companion.toMoneyFormat
 import ki1nhom2.btl.qlct.R
 import ki1nhom2.btl.qlct.addState.AddStateActivity
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
-import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.popup
-
+import ki1nhom2.btl.qlct.homeState.PopUp
+import java.security.AccessController.getContext
 
 class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerView.Adapter<MonthlyInfoAdapter.ViewHolder>() {
 
@@ -40,16 +43,13 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         holder.outcome.text = monthlyStatisticStructure.outcome.toString()
 
         holder.itemView.setOnClickListener {
-            println("Type = $type")
             if(type == 0) {
                 generateConsumptionList(holder, monthlyStatisticStructure.monthName)
-                println(HomeStateActivity.data[position].consumptionList.size.toString())
                 holder.dropDown.rotationX = 180f
             }
             else if(type == 1) {
                 HomeStateActivity.data[position].consumptionList.clear()
                 holder.list.removeAllViews()
-                println(HomeStateActivity.data[position].consumptionList.size.toString() + " " + holder.list.size.toString())
                 holder.dropDown.rotationX = 0f
 
                 notifyItemChanged(position)
@@ -72,11 +72,11 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
 
                 name.text = AddStateActivity.consumptionInfo[i].name
                 type.text = AddStateActivity.consumptionInfo[i].type
-                cost.text = AddStateActivity.consumptionInfo[i].cost.toString()
+                cost.text = toMoneyFormat(AddStateActivity.consumptionInfo[i].cost)
 
                 btnSeeMore.setOnClickListener {
-                    popup.showAtLocation(holder.itemView, Gravity.CENTER, MainActivity.width / 2, MainActivity.height / 4)
-//                    popup.update()
+                    val popupWindow = PopUp()
+                    popupWindow.showPopupWindow(it, AddStateActivity.consumptionInfo[i])
                 }
 
                 holder.list.addView(child)

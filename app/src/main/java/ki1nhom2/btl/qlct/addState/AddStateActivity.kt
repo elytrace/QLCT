@@ -48,9 +48,11 @@ class AddStateActivity : MainActivity() {
         for(i in 0 until expenditureName.size) {
             data.add(
                 ExpenditureInfoNode(
-                    expenditureName[i], toMoneyFormat(expenditureCost[i]))
+                    expenditureName[i], expenditureCost[i])
             )
         }
+
+        changeColor(5)
     }
 
     fun toAddExpenditureCost(view: View) {
@@ -117,7 +119,7 @@ class AddStateActivity : MainActivity() {
                         expenditureNameTextField.text.toString(),
                         expenditureCostTextField.text.toString().toLong(),
                         expenditureTypeChoosing,
-                        dateDisplay.text.toString(),
+                        dateDisplay.text as String,
                         description.text.toString()
                     )
                 )
@@ -167,7 +169,7 @@ class AddStateActivity : MainActivity() {
                 expenditureCost.add(0)
                 data.add(
                     ExpenditureInfoNode(
-                        expenditureName.last(), toMoneyFormat(expenditureCost.last()))
+                        expenditureName.last(), expenditureCost.last())
                 )
                 adapter.notifyItemInserted(expenditureName.size-1)
                 message.text = "Thêm loại khoản chi thành công"

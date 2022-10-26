@@ -80,7 +80,7 @@
         android:background="@null"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/add_circle_black_48dp"
-        app:tint="@color/secondary_color"
+        app:tint="@color/gray"
         android:onClick="toAddState" />
 
     <!--            Button Wallets -->

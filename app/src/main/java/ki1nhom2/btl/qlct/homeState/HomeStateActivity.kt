@@ -28,7 +28,6 @@ class HomeStateActivity : MainActivity() {
 
         val data = ArrayList<MonthlyInfoNode>()
         lateinit var adapter : MonthlyInfoAdapter
-        lateinit var popup : PopupWindow
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +42,6 @@ class HomeStateActivity : MainActivity() {
 
         val textView = findViewById<TextView>(R.id.balanceNumber)
         textView.text = toMoneyFormat(balance)
-
-        popup = PopupWindow(this)
 
         changeColor(1)
     }

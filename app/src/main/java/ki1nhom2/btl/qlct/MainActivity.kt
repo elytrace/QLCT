@@ -3,7 +3,6 @@ package ki1nhom2.btl.qlct
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -29,11 +28,6 @@ open class MainActivity : AppCompatActivity() {
         // variables
 
         var isInitialized : Boolean = false
-
-        val displayMetrics = DisplayMetrics()
-
-        var width = displayMetrics.widthPixels
-        var height = displayMetrics.heightPixels
 
         // functions
 
@@ -70,7 +64,6 @@ open class MainActivity : AppCompatActivity() {
             init()
             isInitialized = true
         }
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
     }
 
     fun changeColor(contentIndex : Int) {
@@ -78,16 +71,24 @@ open class MainActivity : AppCompatActivity() {
         val btnTrans = findViewById<ImageButton>(R.id.btnTrans)
         val btnStats = findViewById<ImageButton>(R.id.btnStats)
         val btnProfile = findViewById<ImageButton>(R.id.btnProfile)
+
         val txtHome = findViewById<TextView>(R.id.txtHome)
         val txtTrans = findViewById<TextView>(R.id.txtTrans)
         val txtStats = findViewById<TextView>(R.id.txtStats)
         val txtProfile = findViewById<TextView>(R.id.txtProfile)
 
+        val btnAdd = findViewById<ImageButton>(R.id.btnAdd)
+
         val listBtn : ArrayList<ImageButton> = arrayListOf(btnHome, btnTrans, btnStats, btnProfile)
         val listTxt : ArrayList<TextView> = arrayListOf(txtHome, txtTrans, txtStats, txtProfile)
 
-        listBtn[contentIndex-1].setColorFilter(Color.BLACK)
-        listTxt[contentIndex-1].setTextColor(Color.BLACK)
+        if(contentIndex == 5) {
+            btnAdd.setColorFilter(Color.argb(100, 5, 128, 60))
+        }
+        else {
+            listBtn[contentIndex-1].setColorFilter(Color.BLACK)
+            listTxt[contentIndex-1].setTextColor(Color.BLACK)
+        }
     }
 
     private fun init() {

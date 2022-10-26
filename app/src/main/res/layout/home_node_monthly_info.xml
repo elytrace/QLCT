@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_node"
-    android:backgroundTint="@color/secondary_color"
+    android:backgroundTint="@color/tertiary_color"
     android:layout_margin="5dp"
     >
 
@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="month"
+            android:textColor="@color/black"
             android:textSize="8pt"
             android:layout_weight="0.2"
             android:layout_marginStart="9dp"
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             app:srcCompat="@drawable/moving_black_48dp"
-            app:tint="#37EE89" />
+            app:tint="#00AC17" />
 
         <TextView
             android:id="@+id/income"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:text="income"
+            android:textColor="@color/black"
             android:textSize="8pt"
             android:layout_marginStart="9dp"
             android:layout_gravity="center" />
@@ -58,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:text="outcome"
+            android:textColor="@color/black"
             android:textSize="8pt"
             android:layout_marginStart="9dp"
             android:layout_gravity="center" />

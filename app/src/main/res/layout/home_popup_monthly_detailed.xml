@@ -1,12 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/popup_window_background"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="10dp"
+android:gravity="center">
+
+<com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/secondary_color"
+    app:cardCornerRadius="5dp" >
 
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Thông tin chi tiết"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="8pt"
+            android:gravity="start"
+            android:textColor="@color/black"
+            android:layout_weight="0.3"
+            android:layout_marginStart="9dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tên khoản chi"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="0.3"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="name"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:paddingStart="15dp"
+                android:layout_marginStart="9dp"
+                android:background="@drawable/border_no_fill"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Loại khoản chi"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="0.3"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="type"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:paddingStart="15dp"
+                android:background="@drawable/border_no_fill"
+                android:layout_marginStart="9dp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ngày thanh toán"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="0.3"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="date"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:paddingStart="15dp"
+                android:background="@drawable/border_no_fill"
+                android:layout_marginStart="9dp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Chi phí (VND)"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="0.3"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="cost"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:paddingStart="15dp"
+                android:background="@drawable/border_no_fill"
+                android:layout_marginStart="9dp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="description"
+            android:textSize="8pt"
+            android:background="@drawable/border_no_fill"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ki1nhom2.btl.qlct.MainActivity.Companion.toMoneyFormat
 import ki1nhom2.btl.qlct.R
 
 class ExpenditureInfoAdapter(private val eList: List<ExpenditureInfoNode>) : RecyclerView.Adapter<ExpenditureInfoAdapter.ViewHolder>() {
@@ -21,7 +22,7 @@ class ExpenditureInfoAdapter(private val eList: List<ExpenditureInfoNode>) : Rec
         val expenditureInfo = eList[position]
 
         holder.expenditureName.text = expenditureInfo.expenditureName
-        holder.expenditureCost.text = expenditureInfo.expenditureCost
+        holder.expenditureCost.text = toMoneyFormat(expenditureInfo.expenditureCost)
         holder.checkBox.isChecked = expenditureInfo.checkBox;
 
         holder.checkBox.setOnClickListener {
