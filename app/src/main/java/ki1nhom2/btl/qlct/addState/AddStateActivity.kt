@@ -28,11 +28,11 @@ class AddStateActivity : MainActivity() {
 
     companion object {
         // Add Name
-        val expenditureName : ArrayList<String> = ArrayList()
-        val expenditureCost : ArrayList<Long> = ArrayList()
+        var expenditureName : ArrayList<String> = ArrayList()
+        var expenditureCost : ArrayList<Long> = ArrayList()
 
         // Add Cost
-        val consumptionInfo : ArrayList<ExpenditureCostNode> = ArrayList()
+        var consumptionInfo : ArrayList<ExpenditureCostNode> = ArrayList()
     }
 
     private val data = ArrayList<ExpenditureInfoNode>()
@@ -134,6 +134,8 @@ class AddStateActivity : MainActivity() {
                 expenditureCostTextField.text?.clear()
                 dateDisplay.text = ""
                 description.text?.clear()
+
+                saveData()
             }
         }
     }
@@ -157,6 +159,8 @@ class AddStateActivity : MainActivity() {
                     expenditureCost.removeAt(i)
                     adapter.notifyItemRemoved(i)
                     message.text = "Xóa loại khoản chi thành công"
+
+                    saveData()
                 }
             }
         }
@@ -174,6 +178,8 @@ class AddStateActivity : MainActivity() {
                 adapter.notifyItemInserted(expenditureName.size-1)
                 message.text = "Thêm loại khoản chi thành công"
                 nameInputted.text = null
+
+                saveData()
             }
             else if(expenditureName.contains(nameInputted.text.toString())) {
                 message.text = "Loại khoản chi đã tồn tại!"
@@ -211,11 +217,15 @@ class AddStateActivity : MainActivity() {
             message.text = "Đã cập nhật số dư!"
             moneyInput.text?.clear()
             description.text = ""
+
+            saveData()
         }
     }
 
     fun backToAddState(view: View) {
         setContentView(R.layout.add_choose_state)
+
+        saveData()
     }
 
 }
