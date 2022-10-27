@@ -56,6 +56,26 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
             }
             type = 1 - type
         }
+
+        holder.dropDown.setOnClickListener {
+            if(type == 0) {
+                generateConsumptionList(holder, monthlyStatisticStructure.monthName)
+                holder.dropDown.rotationX = 180f
+            }
+            else if(type == 1) {
+                HomeStateActivity.data[position].consumptionList.clear()
+                holder.list.removeAllViews()
+                holder.dropDown.rotationX = 0f
+
+                notifyItemChanged(position)
+            }
+            type = 1 - type
+        }
+
+//        holder.itemView.onFocusChangeListener {
+//
+//        }
+
     }
 
     private fun generateConsumptionList(holder : ViewHolder, monthName : String) {

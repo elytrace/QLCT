@@ -74,15 +74,7 @@ open class MainActivity : AppCompatActivity() {
 
             saveData()
         }
-        for(i in 1..12) {
-            data.add(
-                MonthlyInfoNode(
-                    monthNames[i - 1],
-                    income[i - 1],
-                    outcome[i - 1]
-                )
-            )
-        }
+
     }
 
     fun changeColor(contentIndex : Int) {
@@ -123,6 +115,16 @@ open class MainActivity : AppCompatActivity() {
         expenditureCost.add(0)
         expenditureCost.add(0)
         expenditureCost.add(0)
+
+        for(i in 1..12) {
+            data.add(
+                MonthlyInfoNode(
+                    monthNames[i - 1],
+                    income[i - 1],
+                    outcome[i - 1]
+                )
+            )
+        }
     }
 
     fun toHomeState(view: View) {
@@ -163,10 +165,7 @@ open class MainActivity : AppCompatActivity() {
     private fun loadData() {
         val pref = getSharedPreferences("database", MODE_PRIVATE)
         var jsonData = pref.getString("isInitialized", null)
-        if(jsonData != null)
-            isInitialized = Gson().fromJson(jsonData, Boolean::class.java)
-        else
-            isInitialized = false
+        isInitialized = jsonData != null
 
         jsonData = pref.getString("balance", null)
         if(jsonData != null)
