@@ -33,6 +33,7 @@ open class MainActivity : AppCompatActivity() {
         // variables
 
         var isInitialized : Boolean = false
+        var firstTime : Boolean = true
 
         // functions
 
@@ -68,11 +69,23 @@ open class MainActivity : AppCompatActivity() {
 
         loadData()
 
-        if(!isInitialized) {
-            init()
-            isInitialized = true
-
+        if(firstTime) {
+            createDefaultData()
+            firstTime = false
             saveData()
+        }
+
+        if(!isInitialized) {
+            for(i in 1..12) {
+                data.add(
+                    MonthlyInfoNode(
+                        monthNames[i - 1],
+                        income[i - 1],
+                        outcome[i - 1]
+                    )
+                )
+            }
+            isInitialized = true
         }
 
     }
@@ -102,7 +115,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun init() {
+    private fun createDefaultData() {
         for(i in 1..12) {
             income.add(0)
             outcome.add(0)
@@ -115,16 +128,6 @@ open class MainActivity : AppCompatActivity() {
         expenditureCost.add(0)
         expenditureCost.add(0)
         expenditureCost.add(0)
-
-        for(i in 1..12) {
-            data.add(
-                MonthlyInfoNode(
-                    monthNames[i - 1],
-                    income[i - 1],
-                    outcome[i - 1]
-                )
-            )
-        }
     }
 
     fun toHomeState(view: View) {
@@ -151,7 +154,7 @@ open class MainActivity : AppCompatActivity() {
     fun saveData() {
         val pref = getSharedPreferences("database", MODE_PRIVATE)
 
-        pref.edit().putString("isInitialized", Gson().toJson(isInitialized)).apply()
+        pref.edit().putString("firstTime", Gson().toJson(firstTime)).apply()
 
         pref.edit().putString("balance", Gson().toJson(balance)).apply()
         pref.edit().putString("allIncome", Gson().toJson(income)).apply()
@@ -164,8 +167,8 @@ open class MainActivity : AppCompatActivity() {
 
     private fun loadData() {
         val pref = getSharedPreferences("database", MODE_PRIVATE)
-        var jsonData = pref.getString("isInitialized", null)
-        isInitialized = jsonData != null
+        var jsonData = pref.getString("firstTime", null)
+        firstTime = jsonData == null
 
         jsonData = pref.getString("balance", null)
         if(jsonData != null)
@@ -212,9 +215,5 @@ open class MainActivity : AppCompatActivity() {
         }
         else
             consumptionInfo = ArrayList()
-    }
-
-    fun createDefaultData() {
-
     }
 }

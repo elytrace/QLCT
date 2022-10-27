@@ -33,9 +33,10 @@ class AddStateActivity : MainActivity() {
 
         // Add Cost
         var consumptionInfo : ArrayList<ExpenditureCostNode> = ArrayList()
+
+        val data = ArrayList<ExpenditureInfoNode>()
     }
 
-    private val data = ArrayList<ExpenditureInfoNode>()
     lateinit var expenditureList : RecyclerView
     lateinit var message : TextView
     var calendar: Calendar = Calendar.getInstance()

@@ -1,23 +1,17 @@
 package ki1nhom2.btl.qlct.homeState.monthlyShorten
 
-import android.content.Context
-import android.util.DisplayMetrics
 import android.view.*
+import android.view.View.OnFocusChangeListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import ki1nhom2.btl.qlct.MainActivity
 import ki1nhom2.btl.qlct.MainActivity.Companion.toMoneyFormat
 import ki1nhom2.btl.qlct.R
 import ki1nhom2.btl.qlct.addState.AddStateActivity
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
 import ki1nhom2.btl.qlct.homeState.PopUp
-import java.security.AccessController.getContext
 
 class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerView.Adapter<MonthlyInfoAdapter.ViewHolder>() {
 
@@ -71,11 +65,6 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
             }
             type = 1 - type
         }
-
-//        holder.itemView.onFocusChangeListener {
-//
-//        }
-
     }
 
     private fun generateConsumptionList(holder : ViewHolder, monthName : String) {
