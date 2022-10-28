@@ -34,6 +34,56 @@
             android:gravity="bottom|start"
             android:textAllCaps="true" />
 
+        <View
+            android:background="#FF000000"
+            android:layout_height="2dp"
+            android:layout_width="fill_parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            >
+
+            <TextView
+                android:id="@+id/monthInput"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:text="      Tháng       "
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="8pt"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/border_node"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/border_node"
+                android:backgroundTint="@color/secondary_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <Spinner
+                    android:id="@+id/monthSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,6 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="THÊM"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/secondary_color" />

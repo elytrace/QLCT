@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="month"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="8pt"
             android:layout_weight="0.2"

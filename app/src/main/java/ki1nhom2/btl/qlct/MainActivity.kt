@@ -24,6 +24,7 @@ import ki1nhom2.btl.qlct.statsState.StatsStateActivity
 import ki1nhom2.btl.qlct.transactionsState.TransactionStateActivity
 import com.google.gson.reflect.TypeToken
 import ki1nhom2.btl.qlct.addState.addCost.ExpenditureCostNode
+import ki1nhom2.btl.qlct.addState.addName.ExpenditureInfoNode
 import java.lang.reflect.Type
 
 open class MainActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ open class MainActivity : AppCompatActivity() {
 
         // variables
 
-        var isInitialized : Boolean = false
+        var isInited : Boolean = false
         var firstTime : Boolean = true
 
         // functions
@@ -54,11 +55,15 @@ open class MainActivity : AppCompatActivity() {
             return output
         }
 
-        fun reCalculateBalance() {
-            balance = 0
-            for(i in 1..12) {
-                balance += income[i] - outcome[i]
+        fun toLongFormat(money : String) : Long {
+            var output : Long = 0
+
+            for(c in money) {
+                if(c != ',')
+                    output = output * 10 + c.code
             }
+
+            return output
         }
     }
 
@@ -72,10 +77,9 @@ open class MainActivity : AppCompatActivity() {
         if(firstTime) {
             createDefaultData()
             firstTime = false
-            saveData()
         }
 
-        if(!isInitialized) {
+        if(!isInited) {
             for(i in 1..12) {
                 data.add(
                     MonthlyInfoNode(
@@ -85,9 +89,15 @@ open class MainActivity : AppCompatActivity() {
                     )
                 )
             }
-            isInitialized = true
+            for (i in 0 until expenditureName.size) {
+                AddStateActivity.data.add(
+                    ExpenditureInfoNode(
+                        expenditureName[i], expenditureCost[i]
+                    )
+                )
+            }
+            isInited = true
         }
-
     }
 
     fun changeColor(contentIndex : Int) {
@@ -165,7 +175,7 @@ open class MainActivity : AppCompatActivity() {
         pref.edit().putString("allConsumptionInfo", Gson().toJson(consumptionInfo)).apply()
     }
 
-    private fun loadData() {
+    fun loadData() {
         val pref = getSharedPreferences("database", MODE_PRIVATE)
         var jsonData = pref.getString("firstTime", null)
         firstTime = jsonData == null

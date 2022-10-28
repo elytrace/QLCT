@@ -34,10 +34,16 @@
             android:gravity="bottom|start"
             android:textAllCaps="true" />
 
+        <View
+            android:background="#FF000000"
+            android:layout_height="2dp"
+            android:layout_width="fill_parent"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:startIconDrawable="@drawable/description_black_48dp"
+            android:layout_marginTop="10dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText

@@ -27,9 +27,8 @@ class HomeStateActivity : MainActivity() {
         )
 
         val data = ArrayList<MonthlyInfoNode>()
+        lateinit var adapter : MonthlyInfoAdapter
     }
-
-    lateinit var adapter : MonthlyInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

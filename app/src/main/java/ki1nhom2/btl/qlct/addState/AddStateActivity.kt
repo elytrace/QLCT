@@ -20,6 +20,8 @@ import ki1nhom2.btl.qlct.addState.addName.ExpenditureInfoAdapter
 import ki1nhom2.btl.qlct.addState.addName.ExpenditureInfoNode
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.balance
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.income
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.monthNames
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.outcome
 import java.util.*
 
@@ -45,13 +47,6 @@ class AddStateActivity : MainActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_choose_state)
-
-        for(i in 0 until expenditureName.size) {
-            data.add(
-                ExpenditureInfoNode(
-                    expenditureName[i], expenditureCost[i])
-            )
-        }
 
         changeColor(5)
     }
@@ -113,6 +108,9 @@ class AddStateActivity : MainActivity() {
             }
             else if(dateDisplay.text?.isEmpty() == true) {
                 message.text = "Vui lòng chọn ngày!!"
+            }
+            else if(expenditureCostTextField.text?.toString()?.toLong()!! > balance) {
+                message.text = "Đã vượt quá ngân sách hiện có (${toMoneyFormat(balance)})! "
             }
             else {
                 consumptionInfo.add(
@@ -192,9 +190,26 @@ class AddStateActivity : MainActivity() {
         setContentView(R.layout.add_state_budget)
         message = findViewById(R.id.expenditureNameMessage)
 
+        val monthSpinner = findViewById<Spinner>(R.id.monthSpinner)
         val moneyInput = findViewById<TextInputEditText>(R.id.moneyInput)
         val description = findViewById<TextView>(R.id.description)
         val confirmBtn = findViewById<MaterialButton>(R.id.confirmButton)
+
+        var monthChoosing = ""
+        var monthIndex = 0
+        val adapterSpinner : ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_item, monthNames)
+        adapterSpinner.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        monthSpinner.adapter = adapterSpinner
+
+        monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                monthChoosing = ""
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                monthChoosing = monthNames[position]
+                monthIndex = position
+            }
+        }
 
         moneyInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -215,6 +230,9 @@ class AddStateActivity : MainActivity() {
 
         confirmBtn.setOnClickListener {
             balance += moneyInput.text.toString().toLong()
+            income[monthIndex] += moneyInput.text.toString().toLong()
+            HomeStateActivity.data[monthIndex].income += moneyInput.text.toString().toLong()
+            HomeStateActivity.adapter.notifyItemChanged(monthIndex)
             message.text = "Đã cập nhật số dư!"
             moneyInput.text?.clear()
             description.text = ""

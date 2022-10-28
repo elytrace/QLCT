@@ -6,5 +6,5 @@ class MonthlyInfoNode(
     var monthName: String,
     var income: Long,
     var outcome: Long,
-    var consumptionList : MutableList<ExpenditureCostNode> = mutableListOf<ExpenditureCostNode>()
+    var consumptionList : MutableList<ExpenditureCostNode> = mutableListOf()
 )

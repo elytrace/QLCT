@@ -33,8 +33,17 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         val monthlyStatisticStructure = mList[position]
 
         holder.monthName.text = monthlyStatisticStructure.monthName
-        holder.income.text = monthlyStatisticStructure.income.toString()
-        holder.outcome.text = monthlyStatisticStructure.outcome.toString()
+        if(toMoneyFormat(monthlyStatisticStructure.income).length >= 9) {
+            holder.income.text = toMoneyFormat(monthlyStatisticStructure.income)
+                .substring(0, toMoneyFormat(monthlyStatisticStructure.income).length - 8) + "tr"
+        }
+        else holder.income.text = toMoneyFormat(monthlyStatisticStructure.income)
+
+        if(toMoneyFormat(monthlyStatisticStructure.outcome).length >= 9) {
+            holder.outcome.text = toMoneyFormat(monthlyStatisticStructure.outcome)
+                .substring(0, toMoneyFormat(monthlyStatisticStructure.outcome).length - 8) + "tr"
+        }
+        else holder.outcome.text = toMoneyFormat(monthlyStatisticStructure.outcome)
 
         holder.itemView.setOnClickListener {
             if(type == 0) {

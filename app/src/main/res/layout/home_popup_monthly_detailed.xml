@@ -6,38 +6,47 @@ android:layout_height="wrap_content"
 android:layout_margin="10dp"
 android:gravity="center">
 
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/secondary_color"
-    app:cardCornerRadius="5dp" >
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:backgroundTint="@color/secondary_color"
+        app:cardCornerRadius="5dp" >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Thông tin chi tiết"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textSize="8pt"
-            android:gravity="start"
-            android:textColor="@color/black"
-            android:layout_weight="0.3"
-            android:layout_marginStart="9dp"
-            android:layout_gravity="center" />
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:text="Thông tin chi tiết"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textSize="8pt"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="9dp"
+                    android:layout_gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/delete_black_48dp"
+                    app:iconTint="@color/black"
+                    android:onClick="toTransactionState"
+                    />
+
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,18 +59,20 @@ android:gravity="center">
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Tên khoản chi"
+                android:textStyle="bold"
                 android:textSize="8pt"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_weight="0.3"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/name"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="0.3"
-                android:text="name"
+                android:hint="name"
+                android:textColorHint="@color/black"
                 android:textSize="8pt"
                 android:gravity="center"
                 android:textColor="@color/black"
@@ -84,17 +95,19 @@ android:gravity="center">
                 android:layout_height="wrap_content"
                 android:text="Loại khoản chi"
                 android:textSize="8pt"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_weight="0.3"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/type"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="0.3"
-                android:text="type"
+                android:hint="type"
+                android:textColorHint="@color/black"
                 android:textSize="8pt"
                 android:gravity="center"
                 android:textColor="@color/black"
@@ -117,17 +130,19 @@ android:gravity="center">
                 android:layout_height="wrap_content"
                 android:text="Ngày thanh toán"
                 android:textSize="8pt"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_weight="0.3"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/date"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="0.3"
-                android:text="date"
+                android:hint="date"
+                android:textColorHint="@color/black"
                 android:textSize="8pt"
                 android:gravity="center"
                 android:textColor="@color/black"
@@ -150,17 +165,19 @@ android:gravity="center">
                 android:layout_height="wrap_content"
                 android:text="Chi phí (VND)"
                 android:textSize="8pt"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_weight="0.3"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/cost"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="0.3"
-                android:text="cost"
+                android:hint="cost"
+                android:textColorHint="@color/black"
                 android:textSize="8pt"
                 android:gravity="center"
                 android:textColor="@color/black"
@@ -171,18 +188,20 @@ android:gravity="center">
 
         </LinearLayout>
 
-        <TextView
+        <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="description"
+            android:layout_height="48dp"
+            android:hint="description"
+            android:textColorHint="@color/black"
             android:textSize="8pt"
             android:background="@drawable/border_no_fill"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             />
 
-    </LinearLayout>
+        </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
 </LinearLayout>
