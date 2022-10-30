@@ -21,8 +21,8 @@ class ExpenditureInfoAdapter(private val eList: List<ExpenditureInfoNode>) : Rec
 
         val expenditureInfo = eList[position]
 
-        holder.expenditureName.text = expenditureInfo.expenditureName
-        holder.expenditureCost.text = toMoneyFormat(expenditureInfo.expenditureCost)
+        holder.expenditureName.text = expenditureInfo.consumptionType
+        holder.expenditureCost.text = toMoneyFormat(expenditureInfo.consumptionCost)
         holder.checkBox.isChecked = expenditureInfo.checkBox;
 
         holder.checkBox.setOnClickListener {

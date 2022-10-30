@@ -20,9 +20,10 @@ import ki1nhom2.btl.qlct.addState.addName.ExpenditureInfoAdapter
 import ki1nhom2.btl.qlct.addState.addName.ExpenditureInfoNode
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.balance
-import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.income
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.balanceDisplay
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.incomePerMonth
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.monthNames
-import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.outcome
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.outcomePerMonth
 import java.util.*
 
 
@@ -30,18 +31,24 @@ class AddStateActivity : MainActivity() {
 
     companion object {
         // Add Name
-        var expenditureName : ArrayList<String> = ArrayList()
-        var expenditureCost : ArrayList<Long> = ArrayList()
+/**
+ * Danh sách các loại khoản chi
+ */
+        var consumptionTypeList : ArrayList<String> = ArrayList()
+/**
+ * Danh sách chi phí đã tiêu tốn cho khoản chi
+ */
+        var consumptionCostList : ArrayList<Long> = ArrayList()
 
         // Add Cost
-        var consumptionInfo : ArrayList<ExpenditureCostNode> = ArrayList()
+        var consumptionInfoList : ArrayList<ExpenditureCostNode> = ArrayList()
 
         val data = ArrayList<ExpenditureInfoNode>()
+        val calendar: Calendar = Calendar.getInstance()
     }
 
     lateinit var expenditureList : RecyclerView
     lateinit var message : TextView
-    var calendar: Calendar = Calendar.getInstance()
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +86,7 @@ class AddStateActivity : MainActivity() {
         var expenditureTypeChoosing = ""
         var expenditureIndexChoosing = 0
         val expenditureTypeSpinner : Spinner = findViewById(R.id.expenditureTypeSpinner)
-        val adapterSpinner : ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_item, expenditureName)
+        val adapterSpinner : ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_item, consumptionTypeList)
         adapterSpinner.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         expenditureTypeSpinner.adapter = adapterSpinner
 
@@ -88,7 +95,7 @@ class AddStateActivity : MainActivity() {
                 expenditureTypeChoosing = ""
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                expenditureTypeChoosing = expenditureName[position]
+                expenditureTypeChoosing = consumptionTypeList[position]
                 expenditureIndexChoosing = position
             }
         }
@@ -113,7 +120,7 @@ class AddStateActivity : MainActivity() {
                 message.text = "Đã vượt quá ngân sách hiện có (${toMoneyFormat(balance)})! "
             }
             else {
-                consumptionInfo.add(
+                consumptionInfoList.add(
                     ExpenditureCostNode(
                         expenditureNameTextField.text.toString(),
                         expenditureCostTextField.text.toString().toLong(),
@@ -122,17 +129,22 @@ class AddStateActivity : MainActivity() {
                         description.text.toString()
                     )
                 )
-                expenditureCost[expenditureIndexChoosing] += expenditureCostTextField.text.toString().toLong()
 
-                val monthChange: Int = consumptionInfo.last().date.subSequence(3, 5).toString().toInt()
-                outcome[monthChange - 1] += consumptionInfo.last().cost
-                HomeStateActivity.data[monthChange - 1].outcome = outcome[monthChange - 1]
+                data[expenditureIndexChoosing].consumptionCost += expenditureCostTextField.text.toString().toLong()
+                consumptionCostList[expenditureIndexChoosing] += expenditureCostTextField.text.toString().toLong()
+                balance -= expenditureCostTextField.text.toString().toLong()
+
+                val monthChange: Int = consumptionInfoList.last().date.subSequence(3, 5).toString().toInt()
+                outcomePerMonth[monthChange - 1] += consumptionInfoList.last().cost
+                HomeStateActivity.data[monthChange - 1].outcome = outcomePerMonth[monthChange - 1]
 
                 message.text = "Đã lưu thông tin khoản chi!"
                 expenditureNameTextField.text?.clear()
                 expenditureCostTextField.text?.clear()
                 dateDisplay.text = ""
                 description.text?.clear()
+
+                balanceDisplay.text = toMoneyFormat(balance)
 
                 saveData()
             }
@@ -154,8 +166,8 @@ class AddStateActivity : MainActivity() {
             for(i in data.size-1 downTo 0) {
                 if(data[i].checkBox) {
                     data.removeAt(i)
-                    expenditureName.removeAt(i)
-                    expenditureCost.removeAt(i)
+                    consumptionTypeList.removeAt(i)
+                    consumptionCostList.removeAt(i)
                     adapter.notifyItemRemoved(i)
                     message.text = "Xóa loại khoản chi thành công"
 
@@ -167,20 +179,20 @@ class AddStateActivity : MainActivity() {
         val confirmButton : Button = findViewById(R.id.confirmButton)
         confirmButton.setOnClickListener {
             val nameInputted = findViewById<TextInputEditText>(R.id.expenditureNameInputField)
-            if(nameInputted.text.toString().isNotEmpty() && !expenditureName.contains(nameInputted.text.toString())) {
-                expenditureName.add(nameInputted.text.toString())
-                expenditureCost.add(0)
+            if(nameInputted.text.toString().isNotEmpty() && !consumptionTypeList.contains(nameInputted.text.toString())) {
+                consumptionTypeList.add(nameInputted.text.toString())
+                consumptionCostList.add(0)
                 data.add(
                     ExpenditureInfoNode(
-                        expenditureName.last(), expenditureCost.last())
+                        consumptionTypeList.last(), consumptionCostList.last())
                 )
-                adapter.notifyItemInserted(expenditureName.size-1)
+                adapter.notifyItemInserted(consumptionTypeList.size-1)
                 message.text = "Thêm loại khoản chi thành công"
                 nameInputted.text = null
 
                 saveData()
             }
-            else if(expenditureName.contains(nameInputted.text.toString())) {
+            else if(consumptionTypeList.contains(nameInputted.text.toString())) {
                 message.text = "Loại khoản chi đã tồn tại!"
             }
         }
@@ -195,7 +207,6 @@ class AddStateActivity : MainActivity() {
         val description = findViewById<TextView>(R.id.description)
         val confirmBtn = findViewById<MaterialButton>(R.id.confirmButton)
 
-        var monthChoosing = ""
         var monthIndex = 0
         val adapterSpinner : ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_item, monthNames)
         adapterSpinner.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
@@ -203,10 +214,8 @@ class AddStateActivity : MainActivity() {
 
         monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                monthChoosing = ""
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                monthChoosing = monthNames[position]
                 monthIndex = position
             }
         }
@@ -230,12 +239,14 @@ class AddStateActivity : MainActivity() {
 
         confirmBtn.setOnClickListener {
             balance += moneyInput.text.toString().toLong()
-            income[monthIndex] += moneyInput.text.toString().toLong()
+            incomePerMonth[monthIndex] += moneyInput.text.toString().toLong()
             HomeStateActivity.data[monthIndex].income += moneyInput.text.toString().toLong()
             HomeStateActivity.adapter.notifyItemChanged(monthIndex)
             message.text = "Đã cập nhật số dư!"
             moneyInput.text?.clear()
             description.text = ""
+
+            balanceDisplay.text = toMoneyFormat(balance)
 
             saveData()
         }

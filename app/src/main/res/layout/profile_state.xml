@@ -20,6 +20,7 @@
             android:layout_weight="0.9"
             android:text="PROFILE STATE\nCOMING SOON"
             android:textStyle="bold"
+            android:textColor="@color/secondary_color"
             android:textSize="10pt"
             android:gravity="center" />
 

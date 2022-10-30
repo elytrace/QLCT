@@ -1,7 +1,6 @@
 package ki1nhom2.btl.qlct.homeState.monthlyShorten
 
 import android.view.*
-import android.view.View.OnFocusChangeListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -35,13 +34,13 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
         holder.monthName.text = monthlyStatisticStructure.monthName
         if(toMoneyFormat(monthlyStatisticStructure.income).length >= 9) {
             holder.income.text = toMoneyFormat(monthlyStatisticStructure.income)
-                .substring(0, toMoneyFormat(monthlyStatisticStructure.income).length - 8) + "tr"
+                .substring(0, toMoneyFormat(monthlyStatisticStructure.income).length - 6) + "tr"
         }
         else holder.income.text = toMoneyFormat(monthlyStatisticStructure.income)
 
         if(toMoneyFormat(monthlyStatisticStructure.outcome).length >= 9) {
             holder.outcome.text = toMoneyFormat(monthlyStatisticStructure.outcome)
-                .substring(0, toMoneyFormat(monthlyStatisticStructure.outcome).length - 8) + "tr"
+                .substring(0, toMoneyFormat(monthlyStatisticStructure.outcome).length - 6) + "tr"
         }
         else holder.outcome.text = toMoneyFormat(monthlyStatisticStructure.outcome)
 
@@ -78,9 +77,9 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
 
     private fun generateConsumptionList(holder : ViewHolder, monthName : String) {
 
-        for(i in 0 until AddStateActivity.consumptionInfo.size) {
-            if(AddStateActivity.consumptionInfo[i].date.substring(3, 5).toInt()-1 == HomeStateActivity.monthNames.indexOf(monthName)) {
-                HomeStateActivity.data[HomeStateActivity.monthNames.indexOf(monthName)].consumptionList.add(AddStateActivity.consumptionInfo[i])
+        for(i in 0 until AddStateActivity.consumptionInfoList.size) {
+            if(AddStateActivity.consumptionInfoList[i].date.substring(3, 5).toInt()-1 == HomeStateActivity.monthNames.indexOf(monthName)) {
+                HomeStateActivity.data[HomeStateActivity.monthNames.indexOf(monthName)].consumptionList.add(AddStateActivity.consumptionInfoList[i])
 
                 val child : View = LayoutInflater.from(holder.list.context).inflate(R.layout.home_consumption_details, holder.list, false)
                 val name : TextView = child.findViewById(R.id.name)
@@ -88,13 +87,13 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
                 val cost : TextView = child.findViewById(R.id.cost)
                 val btnSeeMore : MaterialButton = child.findViewById(R.id.btnSeeMore)
 
-                name.text = AddStateActivity.consumptionInfo[i].name
-                type.text = AddStateActivity.consumptionInfo[i].type
-                cost.text = toMoneyFormat(AddStateActivity.consumptionInfo[i].cost)
+                name.text = AddStateActivity.consumptionInfoList[i].name
+                type.text = AddStateActivity.consumptionInfoList[i].type
+                cost.text = toMoneyFormat(AddStateActivity.consumptionInfoList[i].cost)
 
                 btnSeeMore.setOnClickListener {
                     val popupWindow = PopUp()
-                    popupWindow.showPopupWindow(it, AddStateActivity.consumptionInfo[i])
+                    popupWindow.showPopupWindow(it, AddStateActivity.consumptionInfoList[i])
                 }
 
                 holder.list.addView(child)

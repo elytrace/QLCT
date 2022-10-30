@@ -50,6 +50,10 @@ class PopUp {
         val date = popupView.findViewById<EditText>(R.id.date)
         val cost = popupView.findViewById<EditText>(R.id.cost)
         val description = popupView.findViewById<EditText>(R.id.description)
+        val btnEdit = popupView.findViewById<ImageButton>(R.id.btnEdit)
+//        btnEdit.setOnClickListener {
+//            TransactionStateActivity.consumptionChoosing = consumptionInfo
+//        }
 
         name.hint = consumptionInfo.name
         type.hint = consumptionInfo.type

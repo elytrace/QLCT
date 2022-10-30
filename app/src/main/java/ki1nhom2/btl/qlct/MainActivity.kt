@@ -9,15 +9,15 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ki1nhom2.btl.qlct.addState.AddStateActivity
-import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.consumptionInfo
-import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.expenditureCost
-import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.expenditureName
+import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.consumptionInfoList
+import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.consumptionCostList
+import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.consumptionTypeList
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.balance
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.data
-import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.income
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.incomePerMonth
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.monthNames
-import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.outcome
+import ki1nhom2.btl.qlct.homeState.HomeStateActivity.Companion.outcomePerMonth
 import ki1nhom2.btl.qlct.homeState.monthlyShorten.MonthlyInfoNode
 import ki1nhom2.btl.qlct.profileState.ProfileStateActivity
 import ki1nhom2.btl.qlct.statsState.StatsStateActivity
@@ -65,6 +65,16 @@ open class MainActivity : AppCompatActivity() {
 
             return output
         }
+
+        fun recalculateMoney() {
+            balance = 0
+            for(record in consumptionInfoList) {
+                outcomePerMonth[record.date.substring(3,5).toInt()] += record.cost
+            }
+            for(i in 0 until 12) {
+                balance += incomePerMonth[i] - outcomePerMonth[i]
+            }
+        }
     }
 
     @Override
@@ -84,15 +94,15 @@ open class MainActivity : AppCompatActivity() {
                 data.add(
                     MonthlyInfoNode(
                         monthNames[i - 1],
-                        income[i - 1],
-                        outcome[i - 1]
+                        incomePerMonth[i - 1],
+                        outcomePerMonth[i - 1]
                     )
                 )
             }
-            for (i in 0 until expenditureName.size) {
+            for (i in 0 until consumptionTypeList.size) {
                 AddStateActivity.data.add(
                     ExpenditureInfoNode(
-                        expenditureName[i], expenditureCost[i]
+                        consumptionTypeList[i], consumptionCostList[i]
                     )
                 )
             }
@@ -117,9 +127,11 @@ open class MainActivity : AppCompatActivity() {
         val listTxt : ArrayList<TextView> = arrayListOf(txtHome, txtTrans, txtStats, txtProfile)
 
         if(contentIndex == 5) {
+            btnAdd.isClickable = false
             btnAdd.setColorFilter(Color.argb(100, 5, 128, 60))
         }
         else {
+            listBtn[contentIndex-1].isClickable = false
             listBtn[contentIndex-1].setColorFilter(Color.BLACK)
             listTxt[contentIndex-1].setTextColor(Color.BLACK)
         }
@@ -127,17 +139,17 @@ open class MainActivity : AppCompatActivity() {
 
     private fun createDefaultData() {
         for(i in 1..12) {
-            income.add(0)
-            outcome.add(0)
+            incomePerMonth.add(0)
+            outcomePerMonth.add(0)
         }
 
-        expenditureName.add("Tiền nhà")
-        expenditureName.add("Tiền điện")
-        expenditureName.add("Tiền nước")
+        consumptionTypeList.add("Tiền nhà")
+        consumptionTypeList.add("Tiền điện")
+        consumptionTypeList.add("Tiền nước")
 
-        expenditureCost.add(0)
-        expenditureCost.add(0)
-        expenditureCost.add(0)
+        consumptionCostList.add(0)
+        consumptionCostList.add(0)
+        consumptionCostList.add(0)
     }
 
     fun toHomeState(view: View) {
@@ -167,12 +179,12 @@ open class MainActivity : AppCompatActivity() {
         pref.edit().putString("firstTime", Gson().toJson(firstTime)).apply()
 
         pref.edit().putString("balance", Gson().toJson(balance)).apply()
-        pref.edit().putString("allIncome", Gson().toJson(income)).apply()
-        pref.edit().putString("allOutcome", Gson().toJson(outcome)).apply()
+        pref.edit().putString("allIncome", Gson().toJson(incomePerMonth)).apply()
+        pref.edit().putString("allOutcome", Gson().toJson(outcomePerMonth)).apply()
 
-        pref.edit().putString("allExpenditureName", Gson().toJson(expenditureName)).apply()
-        pref.edit().putString("allExpenditureCost", Gson().toJson(expenditureCost)).apply()
-        pref.edit().putString("allConsumptionInfo", Gson().toJson(consumptionInfo)).apply()
+        pref.edit().putString("allExpenditureName", Gson().toJson(consumptionTypeList)).apply()
+        pref.edit().putString("allExpenditureCost", Gson().toJson(consumptionCostList)).apply()
+        pref.edit().putString("allConsumptionInfo", Gson().toJson(consumptionInfoList)).apply()
     }
 
     fun loadData() {
@@ -189,41 +201,41 @@ open class MainActivity : AppCompatActivity() {
         jsonData = pref.getString("allIncome", null)
         if(jsonData != null) {
             val type: Type = object : TypeToken<ArrayList<Long?>?>() {}.type
-            income = Gson().fromJson(jsonData, type) as ArrayList<Long>
+            incomePerMonth = Gson().fromJson(jsonData, type) as ArrayList<Long>
         }
         else
-            income = ArrayList()
+            incomePerMonth = ArrayList()
 
         jsonData = pref.getString("allOutcome", null)
         if(jsonData != null) {
             val type: Type = object : TypeToken<ArrayList<Long?>?>() {}.type
-            outcome = Gson().fromJson(jsonData, type) as ArrayList<Long>
+            outcomePerMonth = Gson().fromJson(jsonData, type) as ArrayList<Long>
         }
         else
-            outcome = ArrayList()
+            outcomePerMonth = ArrayList()
 
         jsonData = pref.getString("allExpenditureName", null)
         if(jsonData != null) {
             val type: Type = object : TypeToken<ArrayList<String?>?>() {}.type
-            expenditureName = Gson().fromJson(jsonData, type) as ArrayList<String>
+            consumptionTypeList = Gson().fromJson(jsonData, type) as ArrayList<String>
         }
         else
-            expenditureName = ArrayList()
+            consumptionTypeList = ArrayList()
 
         jsonData = pref.getString("allExpenditureCost", null)
         if(jsonData != null) {
             val type: Type = object : TypeToken<ArrayList<Long?>?>() {}.type
-            expenditureCost = Gson().fromJson(jsonData, type) as ArrayList<Long>
+            consumptionCostList = Gson().fromJson(jsonData, type) as ArrayList<Long>
         }
         else
-            expenditureCost = ArrayList()
+            consumptionCostList = ArrayList()
 
         jsonData = pref.getString("allConsumptionInfo", null)
         if(jsonData != null) {
             val type: Type = object : TypeToken<ArrayList<ExpenditureCostNode?>?>() {}.type
-            consumptionInfo = Gson().fromJson(jsonData, type) as ArrayList<ExpenditureCostNode>
+            consumptionInfoList = Gson().fromJson(jsonData, type) as ArrayList<ExpenditureCostNode>
         }
         else
-            consumptionInfo = ArrayList()
+            consumptionInfoList = ArrayList()
     }
 }

@@ -38,10 +38,10 @@ android:gravity="center">
                     android:layout_gravity="center" />
 
                 <ImageButton
-                    android:id="@+id/btnDelete"
+                    android:id="@+id/btnEdit"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:background="@drawable/delete_black_48dp"
+                    android:background="@drawable/edit_black_48dp"
                     app:iconTint="@color/black"
                     android:onClick="toTransactionState"
                     />
