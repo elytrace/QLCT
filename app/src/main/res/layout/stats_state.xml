@@ -32,7 +32,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"/>
+            android:layout_weight="0.05"/>
 
         <androidx.cardview.widget.CardView
             android:foreground="?android:attr/selectableItemBackground"
@@ -84,6 +84,30 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:id="@+id/typeLinearLayout"
+            android:layout_width="160dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:orientation="vertical"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_node"
+            android:backgroundTint="@color/secondary_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <Spinner
+                android:id="@+id/typeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4" />
+
+        </LinearLayout>
 
         <View
             android:background="#FF000000"

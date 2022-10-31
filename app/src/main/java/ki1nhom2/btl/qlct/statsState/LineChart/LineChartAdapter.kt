@@ -11,17 +11,34 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import ki1nhom2.btl.qlct.MainActivity
+import ki1nhom2.btl.qlct.MainActivity.Companion.toMoneyFormat
+import ki1nhom2.btl.qlct.addState.AddStateActivity.Companion.consumptionInfoList
 import ki1nhom2.btl.qlct.homeState.HomeStateActivity
+import java.text.DecimalFormat
 import kotlin.math.floor
 
 class LineChartAdapter {
 
     companion object {
 
-        private fun setDataForLineChart(lineChart: LineChart) {
+        private fun setDataForLineChart(lineChart: LineChart, typeChoosing : String) {
             val values: ArrayList<Entry> = ArrayList()
             for(i in 0 until 12) {
-                values.add(Entry((i+1).toFloat(), HomeStateActivity.outcomePerMonth[i].toFloat()))
+                if(typeChoosing == "")
+                    values.add(Entry((i+1).toFloat(), HomeStateActivity.outcomePerMonth[i].toFloat()))
+                else {
+                    val specificOutcomePerMonth : ArrayList<Long> = ArrayList()
+                    for(j in 0 until 12) {
+                        specificOutcomePerMonth.add(0)
+                    }
+                    for(record in consumptionInfoList) {
+                        if(record.type == typeChoosing) {
+                            specificOutcomePerMonth[record.date.substring(3,5).toInt()-1] += record.cost
+                        }
+                    }
+                    values.add(Entry((i + 1).toFloat(), specificOutcomePerMonth[i].toFloat()))
+                }
             }
             val set1: LineDataSet
             if (lineChart.data != null && lineChart.data.dataSetCount > 0) {
@@ -48,13 +65,16 @@ class LineChartAdapter {
                 set1.fillColor = Color.WHITE
                 set1.setDrawValues(true)
                 val dataSets: ArrayList<ILineDataSet> = ArrayList()
+//                set1.valueFormatter = ClaimsYAxisValueFormatter()
                 dataSets.add(set1)
                 val data = LineData(dataSets)
                 lineChart.data = data
+
+
             }
         }
 
-        fun renderData(lineChart: LineChart) {
+        fun renderData(lineChart: LineChart, typeChoosing : String) {
             val xAxisLabel: ArrayList<String> = ArrayList()
             for(i in 1 until 13) {
                 xAxisLabel.add("$i")
@@ -87,7 +107,7 @@ class LineChartAdapter {
             lineChart.axisRight.isEnabled = false
             lineChart.description.isEnabled = false
 
-            setDataForLineChart(lineChart)
+            setDataForLineChart(lineChart, typeChoosing)
         }
 
         private fun findMaximumValueInList() : Long {
@@ -102,17 +122,12 @@ class LineChartAdapter {
 
         internal class ClaimsYAxisValueFormatter : ValueFormatter() {
             override fun getAxisLabel(value: Float, axis: AxisBase): String {
-                val firstChar: Char
-                val secondChar: Char
-                val stringFormat = value.toString()
-                if (value >= 1000000f) {
-                    firstChar = stringFormat[0]
-                    secondChar = stringFormat[1]
-                } else {
-                    firstChar = '0'
-                    secondChar = stringFormat[0]
-                }
-                return firstChar + "," + secondChar + "tr"
+                val df = DecimalFormat("#").format(value)
+                val money = df.toLong()
+                if(money >= 1000000)
+                    return toMoneyFormat(money).substring(0, toMoneyFormat(money).length - 6) + "tr"
+                else
+                    return toMoneyFormat(money)
             }
         }
     }
