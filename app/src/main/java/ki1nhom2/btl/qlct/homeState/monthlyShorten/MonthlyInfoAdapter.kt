@@ -46,7 +46,7 @@ class MonthlyInfoAdapter(private val mList: List<MonthlyInfoNode>) : RecyclerVie
 
         holder.itemView.setOnClickListener {
             if(type == 0) {
-                generateConsumptionList(holder, monthlyStatisticStructure.monthName)
+                generateConsumptionList(holder, holder.monthName.text as String)
                 holder.dropDown.rotationX = 180f
             }
             else if(type == 1) {
